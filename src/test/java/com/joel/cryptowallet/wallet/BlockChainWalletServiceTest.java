@@ -8,6 +8,7 @@ import com.joel.cryptowallet.wallet.domain.dto.AccountDTO;
 import com.joel.cryptowallet.wallet.service.BlockChainWalletService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -17,14 +18,17 @@ class BlockChainWalletServiceTest {
     private BlockChainWalletService sut;
     private WalletUserRepository walletUserRepository;
     private EthereumConnector ethereumConnector;
+    private PasswordEncoder passwordEncoder;
 
     @BeforeEach
     void setUp() {
         walletUserRepository = mock(WalletUserRepository.class);
         ethereumConnector = mock(EthereumConnector.class);
+        passwordEncoder = mock(PasswordEncoder.class);
         sut = new BlockChainWalletService(
                 walletUserRepository,
-                ethereumConnector
+                ethereumConnector,
+                passwordEncoder
         );
     }
 
@@ -40,6 +44,8 @@ class BlockChainWalletServiceTest {
                         .privateKey(privateKey)
                         .build()
         );
+        when(passwordEncoder.encode(password)).thenReturn("encryptedPassword");
+        when(passwordEncoder.encode(privateKey)).thenReturn("encryptedPrivateKey");
 
 
         var result = sut.createWallet(id, password);
@@ -52,9 +58,9 @@ class BlockChainWalletServiceTest {
         verify(walletUserRepository).save(
                 WalletUserEntity.builder()
                         .walletId(id)
-                        .password(password)
+                        .password("encryptedPassword")
                         .walletAddress(address)
-                        .privateKey(privateKey)
+                        .privateKey("encryptedPrivateKey")
                         .status(WalletUserStatus.ACTIVATED)
                         .build()
         );

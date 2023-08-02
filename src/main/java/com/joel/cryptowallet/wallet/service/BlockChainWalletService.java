@@ -8,6 +8,7 @@ import com.joel.cryptowallet.wallet.domain.dto.AccountDTO;
 import com.joel.cryptowallet.wallet.controller.response.WalletCreationResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,6 +17,7 @@ public class BlockChainWalletService implements WalletService {
 
     private final WalletUserRepository walletUserRepository;
     private final EthereumConnector ethereumConnector;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     @Override
@@ -23,9 +25,9 @@ public class BlockChainWalletService implements WalletService {
         AccountDTO ethereumAccount = ethereumConnector.createAccount();
         WalletUserEntity user = WalletUserEntity.builder()
                 .walletId(walletId)
-                .password(password)
+                .password(passwordEncoder.encode(password))
                 .walletAddress(ethereumAccount.address())
-                .privateKey(ethereumAccount.privateKey())
+                .privateKey(passwordEncoder.encode(ethereumAccount.privateKey()))
                 .status(WalletUserStatus.ACTIVATED)
                 .build();
         walletUserRepository.save(user);

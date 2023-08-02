@@ -1,6 +1,6 @@
 package com.joel.cryptowallet.connector;
 
-import com.joel.cryptowallet.user.dto.AccountDTO;
+import com.joel.cryptowallet.wallet.domain.dto.AccountDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.web3j.crypto.*;

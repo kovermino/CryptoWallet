@@ -1,10 +1,10 @@
 package com.joel.cryptowallet.wallet;
 
 import com.joel.cryptowallet.connector.EthereumConnector;
-import com.joel.cryptowallet.user.UserEntity;
-import com.joel.cryptowallet.user.UserRepository;
-import com.joel.cryptowallet.user.UserStatus;
-import com.joel.cryptowallet.user.dto.AccountDTO;
+import com.joel.cryptowallet.wallet.domain.entity.WalletUserEntity;
+import com.joel.cryptowallet.wallet.repository.WalletUserRepository;
+import com.joel.cryptowallet.wallet.domain.enums.WalletUserStatus;
+import com.joel.cryptowallet.wallet.domain.dto.AccountDTO;
 import com.joel.cryptowallet.wallet.service.BlockChainWalletService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,15 +15,15 @@ import static org.mockito.Mockito.*;
 class BlockChainWalletServiceTest {
 
     private BlockChainWalletService sut;
-    private UserRepository userRepository;
+    private WalletUserRepository walletUserRepository;
     private EthereumConnector ethereumConnector;
 
     @BeforeEach
     void setUp() {
-        userRepository = mock(UserRepository.class);
+        walletUserRepository = mock(WalletUserRepository.class);
         ethereumConnector = mock(EthereumConnector.class);
         sut = new BlockChainWalletService(
-                userRepository,
+                walletUserRepository,
                 ethereumConnector
         );
     }
@@ -49,13 +49,13 @@ class BlockChainWalletServiceTest {
         assertEquals(address, result.address());
         assertEquals(privateKey, result.privateKey());
 
-        verify(userRepository).save(
-                UserEntity.builder()
+        verify(walletUserRepository).save(
+                WalletUserEntity.builder()
                         .walletId(id)
                         .password(password)
                         .walletAddress(address)
                         .privateKey(privateKey)
-                        .status(UserStatus.ACTIVATED)
+                        .status(WalletUserStatus.ACTIVATED)
                         .build()
         );
     }

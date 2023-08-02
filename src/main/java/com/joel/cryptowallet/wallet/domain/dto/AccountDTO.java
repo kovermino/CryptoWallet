@@ -1,4 +1,4 @@
-package com.joel.cryptowallet.user.dto;
+package com.joel.cryptowallet.wallet.domain.dto;
 
 import lombok.Builder;
 

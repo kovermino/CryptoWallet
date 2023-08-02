@@ -1,5 +1,8 @@
-package com.joel.cryptowallet.user;
+package com.joel.cryptowallet.wallet;
 
+import com.joel.cryptowallet.wallet.domain.entity.WalletUserEntity;
+import com.joel.cryptowallet.wallet.domain.enums.WalletUserStatus;
+import com.joel.cryptowallet.wallet.repository.WalletUserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -7,19 +10,19 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-class UserRepositoryTest {
+class WalletUserRepositoryTest {
 
     @Autowired
-    private UserRepository sut;
+    private WalletUserRepository sut;
 
     @Test
     void save_사용자_정보를_저장한다() {
-        UserEntity user = UserEntity.builder()
+        WalletUserEntity user = WalletUserEntity.builder()
                 .walletId("walletId")
                 .password("password")
                 .walletAddress("ethereumAccount")
                 .privateKey("ethereumAccount")
-                .status(UserStatus.ACTIVATED)
+                .status(WalletUserStatus.ACTIVATED)
                 .build();
 
 

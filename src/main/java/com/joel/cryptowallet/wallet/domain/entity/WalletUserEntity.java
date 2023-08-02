@@ -1,5 +1,6 @@
-package com.joel.cryptowallet.user;
+package com.joel.cryptowallet.wallet.domain.entity;
 
+import com.joel.cryptowallet.wallet.domain.enums.WalletUserStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserEntity {
+public class WalletUserEntity {
     @Id
     private String walletId;
 
@@ -22,5 +23,5 @@ public class UserEntity {
     private String privateKey;
 
     @Enumerated(EnumType.STRING)
-    private UserStatus status;
+    private WalletUserStatus status;
 }

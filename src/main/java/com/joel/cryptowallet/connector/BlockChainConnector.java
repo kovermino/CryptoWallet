@@ -1,6 +1,6 @@
 package com.joel.cryptowallet.connector;
 
-import com.joel.cryptowallet.user.dto.AccountDTO;
+import com.joel.cryptowallet.wallet.domain.dto.AccountDTO;
 
 import java.security.InvalidAlgorithmParameterException;
 import java.security.NoSuchAlgorithmException;

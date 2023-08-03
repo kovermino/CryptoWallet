@@ -14,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
+
 @Service
 @RequiredArgsConstructor
 public class BlockChainWalletService implements WalletService {
@@ -41,7 +43,12 @@ public class BlockChainWalletService implements WalletService {
                 .build();
         walletUserRepository.save(user);
 
-        WalletBalanceEntity initialBalance = WalletBalanceEntity.getInitialBalance(walletId, ethereumAccount.address());
+        WalletBalanceEntity initialBalance = WalletBalanceEntity.builder()
+                .walletId(walletId)
+                .address(ethereumAccount.address())
+                .lastCheckedNode(ethereumAccount.lastCheckedNode())
+                .balance(BigInteger.ZERO)
+                .build();
         walletBalanceRepository.save(initialBalance);
 
         return WalletCreationResponse.builder()

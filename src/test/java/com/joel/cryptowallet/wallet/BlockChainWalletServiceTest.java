@@ -51,6 +51,7 @@ class BlockChainWalletServiceTest {
                 AccountDTO.builder()
                         .address(address)
                         .privateKey(privateKey)
+                        .lastCheckedNode(BigInteger.valueOf(9832))
                         .build()
         );
         when(passwordEncoder.encode(password)).thenReturn("encryptedPassword");
@@ -77,6 +78,7 @@ class BlockChainWalletServiceTest {
         verify(walletBalanceRepository).save(WalletBalanceEntity.builder()
                         .walletId(id)
                         .address(address)
+                        .lastCheckedNode(BigInteger.valueOf(9832))
                         .balance(BigInteger.ZERO)
                 .build()
         );

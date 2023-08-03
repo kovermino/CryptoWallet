@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.ZonedDateTime;
+
 @Entity
 @Data
 @Builder
@@ -24,4 +26,7 @@ public class WalletUserEntity {
 
     @Enumerated(EnumType.STRING)
     private WalletUserStatus status;
+
+    private ZonedDateTime createdAt;
+    private ZonedDateTime updatedAt;
 }

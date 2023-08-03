@@ -1,7 +1,9 @@
 package com.joel.cryptowallet.wallet.service;
 
 import com.joel.cryptowallet.connector.EthereumConnector;
+import com.joel.cryptowallet.wallet.domain.entity.WalletBalanceEntity;
 import com.joel.cryptowallet.wallet.domain.entity.WalletUserEntity;
+import com.joel.cryptowallet.wallet.repository.WalletBalanceRepository;
 import com.joel.cryptowallet.wallet.repository.WalletUserRepository;
 import com.joel.cryptowallet.wallet.domain.enums.WalletUserStatus;
 import com.joel.cryptowallet.wallet.domain.dto.AccountDTO;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
 public class BlockChainWalletService implements WalletService {
 
     private final WalletUserRepository walletUserRepository;
+    private final WalletBalanceRepository walletBalanceRepository;
     private final EthereumConnector ethereumConnector;
     private final PasswordEncoder passwordEncoder;
 
@@ -23,6 +26,7 @@ public class BlockChainWalletService implements WalletService {
     @Override
     public WalletCreationResponse createWallet(String walletId, String password) {
         AccountDTO ethereumAccount = ethereumConnector.createAccount();
+
         WalletUserEntity user = WalletUserEntity.builder()
                 .walletId(walletId)
                 .password(passwordEncoder.encode(password))
@@ -31,6 +35,10 @@ public class BlockChainWalletService implements WalletService {
                 .status(WalletUserStatus.ACTIVATED)
                 .build();
         walletUserRepository.save(user);
+
+        WalletBalanceEntity initialBalance = WalletBalanceEntity.getInitialBalance(walletId);
+        walletBalanceRepository.save(initialBalance);
+
         return WalletCreationResponse.builder()
                 .id(walletId)
                 .address(ethereumAccount.address())

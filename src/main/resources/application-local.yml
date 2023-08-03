@@ -7,4 +7,9 @@ spring:
   jpa:
     spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
+    generate-ddl: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console

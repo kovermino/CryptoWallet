@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 import java.math.BigInteger;
 import java.time.ZonedDateTime;
 
-@Entity
+@Entity(name = "WALLET_BALANCE")
 @Builder
 @Data
 @AllArgsConstructor
@@ -18,15 +18,17 @@ import java.time.ZonedDateTime;
 public class WalletBalanceEntity {
     @Id
     private String walletId;
+    private String address;
     private BigInteger balance;
     private BigInteger lastCheckedNode;
     private BigInteger balanceFromBlockChain;
     private ZonedDateTime createdAt;
     private ZonedDateTime updatedAt;
 
-    public static WalletBalanceEntity getInitialBalance(String walletId) {
+    public static WalletBalanceEntity getInitialBalance(String walletId, String address) {
         return WalletBalanceEntity.builder()
                 .walletId(walletId)
+                .address(address)
                 .balance(BigInteger.ZERO)
                 .build();
     }

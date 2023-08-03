@@ -4,10 +4,7 @@ import com.joel.cryptowallet.wallet.controller.request.WalletCreationRequest;
 import com.joel.cryptowallet.wallet.controller.response.WalletCreationResponse;
 import com.joel.cryptowallet.wallet.service.WalletService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/wallet")
@@ -21,5 +18,12 @@ public class WalletController {
             @RequestBody WalletCreationRequest request
     ) {
         return walletService.createWallet(request.id(), request.password());
+    }
+
+    @GetMapping("/balance")
+    public WalletBalanceResponse getBalance(
+            @RequestParam String address
+    ) {
+        return walletService.getBalance(address);
     }
 }

@@ -29,6 +29,11 @@ class WalletUserRepositoryTest {
         sut.save(user);
 
 
-        assertTrue(sut.findById("walletId").isPresent());
+        assertTrue(sut.existsById("walletId"));
+    }
+
+    @Test
+    void existsById_데이터가_없는_경우_false를_리턴한다() {
+        assertFalse(sut.existsById("notExistWalletId"));
     }
 }

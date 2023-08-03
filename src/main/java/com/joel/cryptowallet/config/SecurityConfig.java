@@ -21,11 +21,15 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((requests) ->
                         requests
-                                .requestMatchers(new AntPathRequestMatcher("/api/wallet/**")) // TODO: JWT 를 사용한 인증
+                                .requestMatchers(
+                                        new AntPathRequestMatcher("/api/wallet/**"),
+                                        new AntPathRequestMatcher("/h2-console/**")
+                                ) // TODO: JWT 를 사용한 인증
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated()
                 )
+                .headers(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable);
         return http.build();

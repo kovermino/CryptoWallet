@@ -16,7 +16,7 @@ class WalletBalanceRepositoryTest {
 
     @Test
     void save() {
-        sut.save(WalletBalanceEntity.getInitialBalance("sampleWalletId"));
+        sut.save(WalletBalanceEntity.getInitialBalance("sampleWalletId", "sampleAddress"));
 
 
         assertTrue(sut.findById("sampleWalletId").isPresent());

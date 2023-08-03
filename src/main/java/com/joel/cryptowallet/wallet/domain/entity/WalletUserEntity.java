@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.ZonedDateTime;
 
-@Entity
+@Entity(name = "WALLET_USER")
 @Data
 @Builder
 @NoArgsConstructor

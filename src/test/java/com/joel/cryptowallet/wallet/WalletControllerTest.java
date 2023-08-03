@@ -1,6 +1,7 @@
 package com.joel.cryptowallet.wallet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.joel.cryptowallet.wallet.controller.WalletBalanceResponse;
 import com.joel.cryptowallet.wallet.controller.WalletController;
 import com.joel.cryptowallet.wallet.controller.request.WalletCreationRequest;
 import com.joel.cryptowallet.wallet.controller.response.WalletCreationResponse;
@@ -12,6 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -59,5 +61,27 @@ class WalletControllerTest {
                 .andExpect(jsonPath("$.privateKey").value("sampleWalletPrivateKey"));
 
         verify(walletService).createWallet(id, password);
+    }
+
+    @Test
+    void getBalance() throws Exception {
+        String walletAddress = "sampleWalletAddress";
+        String balance = "0000000000";
+        when(walletService.getBalance(walletAddress)).thenReturn(
+                WalletBalanceResponse.builder()
+                        .address(walletAddress)
+                        .balance(balance)
+                        .build()
+        );
+
+        sut.perform(
+                get("/api/wallet/balance")
+                        .queryParam("address", walletAddress)
+                )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.address").value(walletAddress))
+                .andExpect(jsonPath("$.balance").value(balance));
+
+        verify(walletService).getBalance(walletAddress);
     }
 }

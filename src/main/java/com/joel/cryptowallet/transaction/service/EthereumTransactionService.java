@@ -26,7 +26,7 @@ public class EthereumTransactionService {
     private final EthTransactionRepository ethTransactionRepository;
     private final EthereumConnector ethereumConnector;
 
-    @Scheduled(fixedDelay = 3000)
+    @Scheduled(fixedDelay = 5000)
     @Transactional
     public void update() {
         var allBalanceList = walletBalanceRepository.findAll();

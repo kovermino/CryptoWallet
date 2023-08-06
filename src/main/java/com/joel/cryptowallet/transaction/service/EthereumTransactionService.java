@@ -3,6 +3,7 @@ package com.joel.cryptowallet.transaction.service;
 import com.joel.cryptowallet.connector.EthereumConnector;
 import com.joel.cryptowallet.transaction.domain.EthTxPerAddress;
 import com.joel.cryptowallet.transaction.domain.entity.EthTransactionEntity;
+import com.joel.cryptowallet.transaction.domain.enums.TransactionStatus;
 import com.joel.cryptowallet.transaction.repository.EthTransactionRepository;
 import com.joel.cryptowallet.wallet.domain.entity.WalletBalanceEntity;
 import com.joel.cryptowallet.wallet.repository.WalletBalanceRepository;
@@ -55,10 +56,11 @@ public class EthereumTransactionService {
         var ethTransactionInfo = ethereumConnector.retrieveTransactions(BigInteger.valueOf(checkStartNode));
         List<WalletBalanceEntity> updatedBalances = allBalanceList.stream()
                 .filter(balanceEntity -> txsPerAddressMap.containsKey(balanceEntity.getAddress()))
+                .filter(balanceEntity -> txsPerAddressMap.get(balanceEntity.getAddress()).getTransactionList().stream().anyMatch(tx -> tx.transactionStatus() == TransactionStatus.CONFIRMED))
                 .map(balanceEntity -> {
                     var originalBalance = balanceEntity.getBalance();
                     var txInfo = txsPerAddressMap.get(balanceEntity.getAddress());
-                    var txAmount = txInfo.totalTxAmount(ethTransactionInfo.getLastCheckedNode());
+                    var txAmount = txInfo.totalTxAmount(balanceEntity.getLastCheckedNode(), ethTransactionInfo.getLastCheckedNode());
                     balanceEntity.setBalance(originalBalance.add(txAmount));
                     balanceEntity.setLastCheckedNode(ethTransactionInfo.getLastCheckedNode());
                     return balanceEntity;
@@ -67,6 +69,8 @@ public class EthereumTransactionService {
         if(!updatedBalances.isEmpty()) {
             walletBalanceRepository.saveAll(updatedBalances);
             log.info(updatedBalances.size() + "건의 지갑 잔액 갱신이 감지되었습니다.");
+        } else {
+            log.info("관리되고 있는 지갑에 해당하는 잔액 업데이트가 없습니다.");
         }
     }
 
@@ -82,6 +86,8 @@ public class EthereumTransactionService {
                 .collect(Collectors.toList());
         if(!allTransactions.isEmpty()) {
             ethTransactionRepository.saveAll(allTransactions);
+        } else {
+            log.info("관리되고 있는 지갑에 해당하는 거래 업데이트가 없습니다.");
         }
     }
 }

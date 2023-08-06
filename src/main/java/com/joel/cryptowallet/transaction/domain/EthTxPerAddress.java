@@ -27,8 +27,9 @@ public class EthTxPerAddress {
         this.transactionList.add(tx);
     }
 
-    public BigInteger totalTxAmount(BigInteger currentNode) {
+    public BigInteger totalTxAmount(BigInteger lastCheckedNode, BigInteger currentNode) {
         var totalAmount = transactionList.stream()
+                .filter(transaction -> transaction.recordedBlockNode().longValue() > lastCheckedNode.longValue())
                 .filter(transaction -> transaction.recordedBlockNode().longValue() + 12 <= currentNode.longValue())
                 .mapToLong(transaction -> {
                     if(transaction.transactionType() == TransactionType.DEPOSIT) {

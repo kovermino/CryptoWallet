@@ -5,6 +5,7 @@ import com.joel.cryptowallet.transaction.domain.EthTxRecord;
 import com.joel.cryptowallet.transaction.domain.EthTxPerAddress;
 import com.joel.cryptowallet.transaction.domain.EthTxTotal;
 import com.joel.cryptowallet.transaction.domain.entity.EthTransactionEntity;
+import com.joel.cryptowallet.transaction.domain.enums.TransactionStatus;
 import com.joel.cryptowallet.transaction.domain.enums.TransactionType;
 import com.joel.cryptowallet.transaction.repository.EthTransactionRepository;
 import com.joel.cryptowallet.transaction.service.EthereumTransactionService;
@@ -69,6 +70,7 @@ class EthereumTransactionServiceTest {
                 EthTxRecord.builder()
                         .txHash("x1")
                         .transactionType(TransactionType.DEPOSIT)
+                        .transactionStatus(TransactionStatus.CONFIRMED)
                         .from("address3")
                         .to("address2")
                         .amount(BigInteger.ONE)
@@ -80,6 +82,7 @@ class EthereumTransactionServiceTest {
                 EthTxRecord.builder()
                         .txHash("x2")
                         .transactionType(TransactionType.WITHDRAWAL)
+                        .transactionStatus(TransactionStatus.CONFIRMED)
                         .from("address3")
                         .to("address2")
                         .amount(BigInteger.ONE)
@@ -124,6 +127,7 @@ class EthereumTransactionServiceTest {
                         EthTransactionEntity.builder()
                                 .txHash("x1")
                                 .transactionType(TransactionType.DEPOSIT)
+                                .transactionStatus(TransactionStatus.CONFIRMED)
                                 .departure("address3")
                                 .destination("address2")
                                 .amount(BigInteger.ONE)
@@ -132,13 +136,13 @@ class EthereumTransactionServiceTest {
                         EthTransactionEntity.builder()
                                 .txHash("x2")
                                 .transactionType(TransactionType.WITHDRAWAL)
+                                .transactionStatus(TransactionStatus.CONFIRMED)
                                 .departure("address3")
                                 .destination("address2")
                                 .amount(BigInteger.ONE)
                                 .recordedBlockNode(BigInteger.valueOf(3))
                                 .build()
                 )).equals(new HashSet<>((Collection) list)))
-
         );
     }
 

@@ -1,5 +1,6 @@
 package com.joel.cryptowallet.transaction.domain.entity;
 
+import com.joel.cryptowallet.transaction.domain.enums.TransactionStatus;
 import com.joel.cryptowallet.transaction.domain.enums.TransactionType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -23,6 +24,9 @@ public class EthTransactionEntity {
     @Id
     @Enumerated(EnumType.STRING)
     private TransactionType transactionType;
+
+    @Enumerated(EnumType.STRING)
+    private TransactionStatus transactionStatus;
 
     private String departure;
     private String destination;

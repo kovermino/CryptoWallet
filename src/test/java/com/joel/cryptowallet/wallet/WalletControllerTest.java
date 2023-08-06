@@ -1,7 +1,7 @@
 package com.joel.cryptowallet.wallet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.joel.cryptowallet.wallet.controller.WalletBalanceResponse;
+import com.joel.cryptowallet.wallet.controller.response.WalletBalanceResponse;
 import com.joel.cryptowallet.wallet.controller.WalletController;
 import com.joel.cryptowallet.wallet.controller.request.WalletCreationRequest;
 import com.joel.cryptowallet.wallet.controller.response.WalletCreationResponse;

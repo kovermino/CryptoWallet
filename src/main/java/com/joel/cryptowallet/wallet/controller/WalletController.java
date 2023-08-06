@@ -1,6 +1,7 @@
 package com.joel.cryptowallet.wallet.controller;
 
 import com.joel.cryptowallet.wallet.controller.request.WalletCreationRequest;
+import com.joel.cryptowallet.wallet.controller.response.WalletBalanceResponse;
 import com.joel.cryptowallet.wallet.controller.response.WalletCreationResponse;
 import com.joel.cryptowallet.wallet.service.WalletService;
 import lombok.RequiredArgsConstructor;

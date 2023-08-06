@@ -1,6 +1,6 @@
 package com.joel.cryptowallet.wallet.service;
 
-import com.joel.cryptowallet.wallet.controller.WalletBalanceResponse;
+import com.joel.cryptowallet.wallet.controller.response.WalletBalanceResponse;
 import com.joel.cryptowallet.wallet.controller.response.WalletCreationResponse;
 
 public interface WalletService {

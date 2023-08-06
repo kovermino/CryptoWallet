@@ -1,7 +1,7 @@
 package com.joel.cryptowallet.transaction.service;
 
 import com.joel.cryptowallet.connector.EthereumConnector;
-import com.joel.cryptowallet.transaction.domain.EthTxSummaryPerAddress;
+import com.joel.cryptowallet.transaction.domain.EthTxPerAddress;
 import com.joel.cryptowallet.transaction.domain.entity.EthTransactionEntity;
 import com.joel.cryptowallet.transaction.repository.EthTransactionRepository;
 import com.joel.cryptowallet.wallet.domain.entity.WalletBalanceEntity;
@@ -51,7 +51,7 @@ public class EthereumTransactionService {
         return oldestCheckNode;
     }
 
-    private void updateBalances(List<WalletBalanceEntity> allBalanceList, Long checkStartNode, Map<String, EthTxSummaryPerAddress> txsPerAddressMap) {
+    private void updateBalances(List<WalletBalanceEntity> allBalanceList, Long checkStartNode, Map<String, EthTxPerAddress> txsPerAddressMap) {
         var ethTransactionInfo = ethereumConnector.retrieveTransactions(BigInteger.valueOf(checkStartNode));
         List<WalletBalanceEntity> updatedBalances = allBalanceList.stream()
                 .filter(balanceEntity -> txsPerAddressMap.containsKey(balanceEntity.getAddress()))
@@ -70,7 +70,7 @@ public class EthereumTransactionService {
         }
     }
 
-    private void insertRecentTransactions(Set<String> henesisWalletAddressSet, Map<String, EthTxSummaryPerAddress> txsPerAddressMap) {
+    private void insertRecentTransactions(Set<String> henesisWalletAddressSet, Map<String, EthTxPerAddress> txsPerAddressMap) {
         List<EthTransactionEntity> allTransactions = txsPerAddressMap.values().stream()
                 .map(tx -> tx.getTransactionList())
                 .map(txList -> txList.stream().filter(tx -> henesisWalletAddressSet.contains(tx.from()) || henesisWalletAddressSet.contains(tx.to())).collect(Collectors.toList()))

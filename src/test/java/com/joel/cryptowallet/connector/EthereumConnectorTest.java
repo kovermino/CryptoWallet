@@ -1,8 +1,8 @@
 package com.joel.cryptowallet.connector;
 
-import com.joel.cryptowallet.transaction.domain.EthTxSummaryPerAddress;
+import com.joel.cryptowallet.transaction.domain.EthTxPerAddress;
 import com.joel.cryptowallet.transaction.domain.EthTxTotal;
-import com.joel.cryptowallet.transaction.domain.dto.EthTxRecord;
+import com.joel.cryptowallet.transaction.domain.EthTxRecord;
 import com.joel.cryptowallet.transaction.domain.enums.TransactionStatus;
 import com.joel.cryptowallet.transaction.domain.enums.TransactionType;
 import org.junit.jupiter.api.BeforeEach;
@@ -58,7 +58,7 @@ class EthereumConnectorTest {
         var transactions = sut.retrieveTransactions(BigInteger.TWO);
 
 
-        var address1Tx = new EthTxSummaryPerAddress("address1");
+        var address1Tx = new EthTxPerAddress("address1");
         address1Tx.addTransaction(
                 EthTxRecord.builder()
                         .txHash("tx1")
@@ -70,7 +70,7 @@ class EthereumConnectorTest {
                         .recordedBlockNode(BigInteger.valueOf(2))
                         .build()
         );
-        var address2Tx = new EthTxSummaryPerAddress("address2");
+        var address2Tx = new EthTxPerAddress("address2");
         address2Tx.addTransaction(
                 EthTxRecord.builder()
                         .txHash("tx1")

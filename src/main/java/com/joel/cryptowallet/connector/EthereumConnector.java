@@ -1,8 +1,8 @@
 package com.joel.cryptowallet.connector;
 
-import com.joel.cryptowallet.transaction.domain.EthTxSummaryPerAddress;
+import com.joel.cryptowallet.transaction.domain.EthTxPerAddress;
 import com.joel.cryptowallet.transaction.domain.EthTxTotal;
-import com.joel.cryptowallet.transaction.domain.dto.EthTxRecord;
+import com.joel.cryptowallet.transaction.domain.EthTxRecord;
 import com.joel.cryptowallet.transaction.domain.enums.TransactionStatus;
 import com.joel.cryptowallet.transaction.domain.enums.TransactionType;
 import com.joel.cryptowallet.wallet.domain.dto.AccountDTO;
@@ -109,7 +109,7 @@ public class EthereumConnector implements BlockChainConnector {
         }
     }
 
-    private EthTxSummaryPerAddress appendEthTxSummary(
+    private EthTxPerAddress appendEthTxSummary(
             EthTxTotal txTotal,
             Transaction tx,
             String address,
@@ -119,7 +119,7 @@ public class EthereumConnector implements BlockChainConnector {
     ) {
         var withdrawalTx = txTotal.getTransactionsWithAddress().getOrDefault(
                 address,
-                new EthTxSummaryPerAddress(address)
+                new EthTxPerAddress(address)
         );
         withdrawalTx.addTransaction(
                 buildEthTxRecord(tx, transactionType, transactionStatus, recordedBlockNumber)

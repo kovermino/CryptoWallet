@@ -10,7 +10,7 @@ import java.util.Map;
 @Getter
 public class EthTxTotal {
     private BigInteger lastCheckedNode;
-    private Map<String, EthTxSummaryPerAddress> transactionsWithAddress;
+    private Map<String, EthTxPerAddress> transactionsWithAddress;
 
     @Override
     public boolean equals(Object o) {

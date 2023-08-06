@@ -1,17 +1,16 @@
 package com.joel.cryptowallet.transaction.domain;
 
-import com.joel.cryptowallet.transaction.domain.dto.EthTxRecord;
 import com.joel.cryptowallet.transaction.domain.enums.TransactionType;
 
 import java.math.BigInteger;
 import java.util.LinkedList;
 import java.util.List;
 
-public class EthTxSummaryPerAddress {
+public class EthTxPerAddress {
     private String address;
     private List<EthTxRecord> transactionList;
 
-    public EthTxSummaryPerAddress(String address) {
+    public EthTxPerAddress(String address) {
         this.address = address;
         transactionList = new LinkedList<>();
     }
@@ -47,7 +46,7 @@ public class EthTxSummaryPerAddress {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        EthTxSummaryPerAddress that = (EthTxSummaryPerAddress) o;
+        EthTxPerAddress that = (EthTxPerAddress) o;
 
         if (!this.address.equals(that.address)) return false;
         return transactionList.equals(that.transactionList);

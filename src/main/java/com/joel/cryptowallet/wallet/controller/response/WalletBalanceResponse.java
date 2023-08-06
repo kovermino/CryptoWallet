@@ -1,4 +1,4 @@
-package com.joel.cryptowallet.wallet.controller;
+package com.joel.cryptowallet.wallet.controller.response;
 
 import lombok.Builder;
 

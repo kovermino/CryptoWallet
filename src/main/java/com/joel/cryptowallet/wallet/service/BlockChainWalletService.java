@@ -1,7 +1,7 @@
 package com.joel.cryptowallet.wallet.service;
 
 import com.joel.cryptowallet.connector.EthereumConnector;
-import com.joel.cryptowallet.wallet.controller.WalletBalanceResponse;
+import com.joel.cryptowallet.wallet.controller.response.WalletBalanceResponse;
 import com.joel.cryptowallet.wallet.domain.entity.WalletBalanceEntity;
 import com.joel.cryptowallet.wallet.domain.entity.WalletUserEntity;
 import com.joel.cryptowallet.wallet.repository.WalletBalanceRepository;

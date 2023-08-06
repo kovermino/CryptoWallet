@@ -1,4 +1,4 @@
-package com.joel.cryptowallet.transaction.domain.dto;
+package com.joel.cryptowallet.transaction.domain;
 
 import com.joel.cryptowallet.transaction.domain.entity.EthTransactionEntity;
 import com.joel.cryptowallet.transaction.domain.enums.TransactionStatus;

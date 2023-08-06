@@ -1,12 +1,13 @@
-package com.joel.cryptowallet.transaction.service;
+package com.joel.cryptowallet.transaction;
 
 import com.joel.cryptowallet.connector.EthereumConnector;
-import com.joel.cryptowallet.transaction.domain.dto.EthTxRecord;
-import com.joel.cryptowallet.transaction.domain.EthTxSummaryPerAddress;
+import com.joel.cryptowallet.transaction.domain.EthTxRecord;
+import com.joel.cryptowallet.transaction.domain.EthTxPerAddress;
 import com.joel.cryptowallet.transaction.domain.EthTxTotal;
 import com.joel.cryptowallet.transaction.domain.entity.EthTransactionEntity;
 import com.joel.cryptowallet.transaction.domain.enums.TransactionType;
 import com.joel.cryptowallet.transaction.repository.EthTransactionRepository;
+import com.joel.cryptowallet.transaction.service.EthereumTransactionService;
 import com.joel.cryptowallet.wallet.domain.entity.WalletBalanceEntity;
 import com.joel.cryptowallet.wallet.repository.WalletBalanceRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -63,7 +64,7 @@ class EthereumTransactionServiceTest {
                 )
         );
 
-        var address2Tx = new EthTxSummaryPerAddress("address2");
+        var address2Tx = new EthTxPerAddress("address2");
         address2Tx.addTransaction(
                 EthTxRecord.builder()
                         .txHash("x1")
@@ -74,7 +75,7 @@ class EthereumTransactionServiceTest {
                         .recordedBlockNode(BigInteger.valueOf(3))
                         .build()
         );
-        var address3Tx = new EthTxSummaryPerAddress("address3");
+        var address3Tx = new EthTxPerAddress("address3");
         address3Tx.addTransaction(
                 EthTxRecord.builder()
                         .txHash("x2")
@@ -154,7 +155,7 @@ class EthereumTransactionServiceTest {
                 )
         );
 
-        var address2Tx = new EthTxSummaryPerAddress("address2");
+        var address2Tx = new EthTxPerAddress("address2");
         address2Tx.addTransaction(
                 EthTxRecord.builder()
                         .txHash("x1")
@@ -165,7 +166,7 @@ class EthereumTransactionServiceTest {
                         .recordedBlockNode(BigInteger.valueOf(3))
                         .build()
         );
-        var address3Tx = new EthTxSummaryPerAddress("address3");
+        var address3Tx = new EthTxPerAddress("address3");
         address3Tx.addTransaction(
                 EthTxRecord.builder()
                         .txHash("x2")
